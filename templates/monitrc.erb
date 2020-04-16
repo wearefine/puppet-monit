@@ -4,7 +4,9 @@ set daemon <%= @check_interval %>
 <%- if @start_delay.to_s != '0' -%>
 with start delay <%= @start_delay %>
 <%- end -%>
+<%- if @logfile -%>
 set logfile <%= @logfile %>
+<%- end -%>
 <%- if scope.function_versioncmp([@monit_version_real, '5']) >= 0 -%>
 set idfile /var/lib/monit/id
 <%- end -%>

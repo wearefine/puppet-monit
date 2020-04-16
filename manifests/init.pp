@@ -90,7 +90,7 @@ class monit (
   validate_bool($service_manage_bool)
   validate_string($service_name)
 
-  if $logfile != 'syslog' {
+  if ($logfile =~ Undef) and !($logfile =~ /^syslog(\s+facility\s+log_(local[0-7]|daemon))?/) {  
     validate_absolute_path($logfile)
   }
 
