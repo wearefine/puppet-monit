@@ -41,7 +41,7 @@ describe 'monit' do
             when '6'
               monit_version = '5'
               config_file   = '/etc/monit.conf'
-            when '7'
+            when '7', '8'
               monit_version = '5'
               config_file   = '/etc/monitrc'
             else
@@ -160,6 +160,7 @@ describe 'monit' do
 
           context 'when manage_firewall and http are set to valid bool <true>' do
             let(:pre_condition) { ['include ::firewall'] }
+            let(:facts) { facts.merge(iptables_persistent_version: '0.5.3ubuntu2') }
             let(:params) do
               {
                 manage_firewall: true,
