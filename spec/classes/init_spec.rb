@@ -158,6 +158,21 @@ describe 'monit' do
             it { is_expected.to contain_file('monit_config').with_content(%r{#{content}}) }
           end
 
+          context 'when httpd_password parameter consists special charaters' do
+            let(:params) do
+              {
+                httpd:          true,
+                httpd_port:     2420,
+                httpd_address:  'otherhost',
+                httpd_allow:    '0.0.0.0/0.0.0.0',
+                httpd_user:     'tester',
+                httpd_password: 'Pa$$w0rd',
+              }
+            end
+
+            it { is_expected.to contain_file('monit_config').with_content(%r{^\s+allow tester:"Pa\$\$w0rd"$}) }
+          end
+
           context 'when manage_firewall and http are set to valid bool <true>' do
             let(:pre_condition) { ['include ::firewall'] }
             let(:params) do
