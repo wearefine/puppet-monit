@@ -1,7 +1,10 @@
 version: "3.5"
 services:
-  pdk:
-    command: bundle exec rake parallel_spec
+  static:
+    command: bundle exec rake check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint
     build:
       context: .
+    image: puppet-monit
+  spec:
+    command: bundle exec rake parallel_spec
     image: puppet-monit
