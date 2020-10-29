@@ -27,9 +27,9 @@ describe 'monit' do
           case facts[:operatingsystem]
           when 'Amazon'
             case facts[:operatingsystemmajrelease]
-            when '4', '2'
+            when '2016', '2018'
               monit_version = '5'
-              config_file   = '/etc/monitrc'
+              config_file   = '/etc/monit.conf'
             else
               raise 'unsupported operatingsystemmajrelease detected on Amazon Linux operating system'
             end
