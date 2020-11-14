@@ -21,7 +21,8 @@
     {
       "operatingsystem": "Amazon",
       "operatingsystemrelease": [
-        "4"
+        "2016",
+        "2018"
       ]
     },
     {
@@ -56,7 +57,8 @@
       "operatingsystemrelease": [
         "5",
         "6",
-        "7"
+        "7",
+        "8"
       ]
     },
     {
@@ -85,7 +87,7 @@
   "tags": [
     "monitoring"
   ],
-  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
-  "template-ref": "1.7.1-0-g810b982",
-  "pdk-version": "1.7.1"
+  "template-url": "pdk-default#1.18.0",
+  "template-ref": "tags/1.18.0-0-g095317c",
+  "pdk-version": "1.18.0"
 }

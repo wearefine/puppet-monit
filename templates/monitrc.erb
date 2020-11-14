@@ -30,7 +30,11 @@ set httpd port <%= @httpd_port %> and
    use address <%= @httpd_address %>
    allow <%= @httpd_allow %>
    <%- if !@httpd_user.empty? && !@httpd_password.empty? -%>
+   <%-   if @httpd_password =~ %r{^\w+$} -%>
    allow <%= @httpd_user %>:<%= @httpd_password %>
+   <%-   else -%>
+   allow <%= @httpd_user %>:"<%= @httpd_password %>"
+   <%-   end -%>
    <%- end -%>
 <%- end -%>
 <%- if @mmonit_address  -%>

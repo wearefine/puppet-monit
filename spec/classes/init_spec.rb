@@ -27,9 +27,9 @@ describe 'monit' do
           case facts[:operatingsystem]
           when 'Amazon'
             case facts[:operatingsystemmajrelease]
-            when '4', '2'
+            when '2016', '2018'
               monit_version = '5'
-              config_file   = '/etc/monitrc'
+              config_file   = '/etc/monit.conf'
             else
               raise 'unsupported operatingsystemmajrelease detected on Amazon Linux operating system'
             end
@@ -41,7 +41,7 @@ describe 'monit' do
             when '6'
               monit_version = '5'
               config_file   = '/etc/monit.conf'
-            when '7'
+            when '7', '8'
               monit_version = '5'
               config_file   = '/etc/monitrc'
             else
@@ -158,8 +158,24 @@ describe 'monit' do
             it { is_expected.to contain_file('monit_config').with_content(%r{#{content}}) }
           end
 
+          context 'when httpd_password parameter consists special charaters' do
+            let(:params) do
+              {
+                httpd:          true,
+                httpd_port:     2420,
+                httpd_address:  'otherhost',
+                httpd_allow:    '0.0.0.0/0.0.0.0',
+                httpd_user:     'tester',
+                httpd_password: 'Pa$$w0rd',
+              }
+            end
+
+            it { is_expected.to contain_file('monit_config').with_content(%r{^\s+allow tester:"Pa\$\$w0rd"$}) }
+          end
+
           context 'when manage_firewall and http are set to valid bool <true>' do
             let(:pre_condition) { ['include ::firewall'] }
+            let(:facts) { facts.merge(iptables_persistent_version: '0.5.3ubuntu2') }
             let(:params) do
               {
                 manage_firewall: true,
