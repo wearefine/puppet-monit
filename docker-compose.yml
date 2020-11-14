@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   pdk:
-    image: puppet/pdk:1.18.0.0
+    image: puppet/pdk:1.18.1.0
     working_dir: /module
     volumes:
       - .:/module

@@ -21,6 +21,9 @@ stages:
   - static
   - spec
   - acceptance
+  -
+    if: tag =~ ^v\d
+    name: deploy
 jobs:
   fast_finish: true
   include:
@@ -35,18 +38,12 @@ jobs:
       env: PUPPET_GEM_VERSION="~> 6.0" CHECK=parallel_spec
       rvm: 2.5.7
       stage: spec
+    -
+      env: DEPLOY_TO_FORGE=yes
+      stage: deploy
 branches:
   only:
     - master
     - /^v\d/
 notifications:
   email: false
-deploy:
-  provider: puppetforge
-  user: puppet
-  password:
-    secure: ""
-  on:
-    tags: true
-    all_branches: true
-    condition: "$DEPLOY_TO_FORGE = yes"
