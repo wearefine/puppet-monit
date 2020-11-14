@@ -3,7 +3,7 @@
 [![Puppet Forge Version](http://img.shields.io/puppetforge/v/soli/monit.svg)](https://forge.puppetlabs.com/soli/monit)
 [![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/soli/monit.svg)](https://forge.puppetlabs.com/soli/monit)
 [![Puppet Forge Score](http://img.shields.io/puppetforge/f/soli/monit.svg)](https://forge.puppetlabs.com/soli/monit)
-[![Build Status](https://travis-ci.org/solution-libre/puppet-monit.svg?branch=master)](https://travis-ci.org/solution-libre/puppet-monit)
+[![Build Status](https://travis-ci.com/solution-libre/puppet-monit.svg?branch=master)](https://travis-ci.com/solution-libre/puppet-monit)
 
 #### Table of Contents
 
