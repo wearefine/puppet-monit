@@ -307,7 +307,7 @@ describe 'monit' do
               {
                 mmonit_address:  'monit242.test.local',
                 mmonit_https:    false,
-                mmonit_port:     '8242',
+                mmonit_port:     8242,
                 mmonit_user:     'monituser',
                 mmonit_password: 'Pa55w0rd',
               }
@@ -366,7 +366,7 @@ describe 'monit' do
         it 'fails' do
           expect {
             is_expected.to contain_class('monit')
-          }.to raise_error(Puppet::Error, %r{Expected #{value} to be (smaller|greater) or equal to (0|65535)})
+          }.to raise_error(Puppet::PreformattedError, %r{expects an Integer\[0, 65535\] value})
         end
       end
     end
@@ -377,7 +377,7 @@ describe 'monit' do
       it 'fails' do
         expect {
           is_expected.to contain_class('monit')
-        }.to raise_error(Puppet::Error, %r{to be greater or equal to 0})
+        }.to raise_error(Puppet::PreformattedError, %r{expects an Integer\[0\] value})
       end
     end
 
@@ -387,7 +387,7 @@ describe 'monit' do
       it 'fails' do
         expect {
           is_expected.to contain_class('monit')
-        }.to raise_error(Puppet::Error, %r{to be greater or equal to 0})
+        }.to raise_error(Puppet::PreformattedError, %r{expects an Integer\[0\] value})
       end
     end
 
@@ -492,46 +492,51 @@ Detected lsbdistcodename is <hardy>\.})
         name: ['config_file', 'config_dir', 'logfile'],
         valid: ['/absolute/filepath', '/absolute/directory/'],
         invalid: ['invalid', 3, 2.42, ['array'], { 'ha' => 'sh' }],
-        message: 'is not an absolute path',
+        message: '(expects a String value|is not an absolute path)',
       },
       'array' => {
         name: ['alert_emails'],
         valid: [['valid', 'array']],
         invalid: ['string', { 'ha' => 'sh' }, 3, 2.42, true],
-        message: 'is not an Array',
+        message: 'expects an Array value',
       },
       'bool_stringified' => {
         name: ['httpd', 'manage_firewall', 'service_enable', 'service_manage', 'mmonit_https', 'mmonit_without_credential', 'config_dir_purge'],
         valid: [true, 'true', false, 'false'],
         invalid: ['invalid', 3, 2.42, ['array'], { 'ha' => 'sh' }, nil],
-        message: '(is not a boolean|Unknown type of boolean)',
+        message: 'expects a value of type Boolean or Enum',
       },
-      'hash' => {
+      'integer' => {
+        name: ['check_interval', 'httpd_port', 'mmonit_port', 'start_delay'],
+        valid: [242],
+        invalid: [2.42, 'invalid', ['array'], { 'ha' => 'sh ' }, true, false, nil],
+        message: 'expects an Integer',
+      },
+      'optional_hash' => {
         name: ['mailformat'],
         valid: [{ 'ha' => 'sh' }],
         invalid: ['string', 3, 2.42, ['array'], true, false, nil],
-        message: 'is not a Hash',
+        message: 'expects a value of type Undef or Hash',
       },
-      'integer_stringified' => {
-        name: ['check_interval', 'httpd_port', 'start_delay'],
-        valid: [242, '242'],
-        invalid: [2.42, 'invalid', ['array'], { 'ha' => 'sh ' }, true, false, nil],
-        message: 'Expected.*to be an Integer',
-      },
-      'string' => {
-        name: ['httpd_address', 'httpd_allow', 'httpd_user', 'httpd_password',
-               'package_ensure', 'package_name', 'service_name', 'mailserver',
-               'mmonit_address', 'mmonit_port', 'mmonit_user', 'mmonit_password'],
+      'optional_string' => {
+        name: ['mailserver', 'mmonit_address'],
         valid: ['present'],
         invalid: [['array'], { 'ha' => 'sh' }],
-        message: 'is not a string',
+        message: 'expects a value of type Undef or String',
+      },      'string' => {
+        name: ['httpd_address', 'httpd_allow', 'httpd_user', 'httpd_password',
+               'package_ensure', 'package_name', 'service_name', 'mmonit_user',
+               'mmonit_password'],
+        valid: ['present'],
+        invalid: [['array'], { 'ha' => 'sh' }],
+        message: 'expects a String value',
       },
       'service_ensure_string' => {
         name: ['service_ensure'],
         valid: ['running'],
         invalid: [['array'], { 'ha' => 'sh' }],
-        message: 'is not a string',
-      },
+        message: 'expects a match for Enum\[\'running\', \'stopped\'\]',
+      }
     }
 
     validations.sort.each do |type, var|

@@ -1,4 +1,8 @@
-# Private class
+# @summary
+#   This class handles the firewall configuration.
+#
+# @api private
+#
 class monit::firewall {
   if $caller_module_name != $module_name {
     fail("Use of private class ${name} by ${caller_module_name}")

@@ -1,4 +1,8 @@
-# Private class
+# @summary
+#   This class handles the configuration file.
+#
+# @api private
+#
 class monit::config inherits monit {
   if $caller_module_name != $module_name {
     fail("Use of private class ${name} by ${caller_module_name}")

@@ -1,28 +1,30 @@
-# == Define: monit::check
+# @summary
+#   Adds a Monit check.
+#
+# @param content
+#   Specifies the content of the configuration file. The `content` and `source` parameters are exclusive of each other.
+#
+# @param ensure
+#   Tells Puppet whether the check should exist.
+#
+# @param source
+#   Tells Puppet what is the path of the configuration file. The `content` and `source` parameters are exclusive of each other.
 #
 define monit::check (
-  $content = undef,
-  $ensure  = present,
-  $source  = undef,
+  Optional[String]          $content = undef,
+  Enum['present', 'absent'] $ensure  = present,
+  Optional[String]          $source  = undef,
 ) {
   # The base class must be included first because it is used by parameter defaults
   if ! defined(Class['monit']) {
     fail('You must include the monit base class before using any monit defined resources')
   }
 
-  validate_re($ensure, '^(present|absent)$',
-    "monit::check::ensure is <${ensure}> and must be 'present' or 'absent'.")
-
+  # <variable validations>
   if $source and $content {
     fail 'Parameters source and content are mutually exclusive'
   }
-
-  if $source != undef and is_string($source) == false {
-    fail 'monit::check::source is not a string.'
-  }
-  if $content != undef and is_string($content) == false {
-    fail 'monit::check::content is not a string.'
-  }
+  # </variable validations>
 
   file { "${::monit::config_dir}/${name}":
     ensure  => $ensure,

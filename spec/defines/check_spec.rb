@@ -129,19 +129,19 @@ describe 'monit::check' do
         name: ['ensure'],
         valid: ['present', 'absent'],
         invalid: ['file', 'directory', 'link', ['array'], { 'ha' => 'sh' }, 3, 2.42, true, false, nil],
-        message: 'must be \'present\' or \'absent\'',
+        message: 'match for Enum\[\'absent\', \'present\'\]',
       },
       'string' => {
         name: ['content'],
         valid: ['string'],
         invalid: [['array'], { 'ha' => 'sh' }, 3, 2.42, true, false],
-        message: 'is not a string',
+        message: 'value of type Undef or String',
       },
       'string_file_source' => {
         name: ['source'],
         valid: ['puppet:///modules/subject/test'],
         invalid: [['array'], { 'ha' => 'sh' }, 3, 2.42, true, false],
-        message: 'is not a string',
+        message: 'value of type Undef or String',
       },
     }
 
@@ -162,7 +162,7 @@ describe 'monit::check' do
             it 'fails' do
               expect {
                 catalogue
-              }.to raise_error(Puppet::Error, %r{#{var[:message]}})
+              }.to raise_error(Puppet::PreformattedError, %r{expects a #{var[:message]}})
             end
           end
         end

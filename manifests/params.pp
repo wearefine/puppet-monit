@@ -1,6 +1,7 @@
-# == Class: monit::params
+# @summary
+#   This is a container class with default parameters for monit classes.
 #
-# This is a container class with default parameters for monit classes.
+# @api private
 class monit::params {
   $check_interval            = 120
   $config_dir_purge          = false
@@ -24,7 +25,7 @@ class monit::params {
   $start_delay               = 0
   $mmonit_address            = undef
   $mmonit_https              = true
-  $mmonit_port               = '8443'
+  $mmonit_port               = 8443
   $mmonit_user               = 'monit'
   $mmonit_password           = 'monit'
   $mmonit_without_credential = false
