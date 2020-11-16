@@ -1,13 +1,9 @@
 ---
-appveyor.yml:
-  delete: true
 .gitlab-ci.yml:
   delete: true
+
 .project:
   delete: true
-
-spec/spec_helper.rb:
-  mock_with: ':rspec'
 
 .travis.yml:
   branches:
@@ -17,3 +13,10 @@ spec/spec_helper.rb:
       env: PUPPET_GEM_VERSION="~> 4.0" CHECK=parallel_spec
       rvm: 2.1.9
       stage: spec
+
+appveyor.yml:
+  delete: true
+
+spec/spec_helper.rb:
+  mock_with: ':rspec'
+  coverage_report: true
