@@ -1,8 +1,9 @@
 # monit
 
-[![Puppet Forge Version](http://img.shields.io/puppetforge/v/soli/monit.svg)](https://forge.puppetlabs.com/soli/monit)
-[![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/soli/monit.svg)](https://forge.puppetlabs.com/soli/monit)
-[![Puppet Forge Score](http://img.shields.io/puppetforge/f/soli/monit.svg)](https://forge.puppetlabs.com/soli/monit)
+[![Puppet Forge Version](http://img.shields.io/puppetforge/v/soli/monit)](https://forge.puppetlabs.com/soli/monit)
+[![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/soli/monit)](https://forge.puppetlabs.com/soli/monit)
+[![Puppet Forge feedback score](https://img.shields.io/puppetforge/f/soli/monit)](https://forge.puppetlabs.com/soli/monit)
+[![Puppet Forge endorsement](https://img.shields.io/puppetforge/e/soli/monit)](https://forge.puppetlabs.com/soli/monit)
 [![Build Status](https://travis-ci.com/solution-libre/puppet-monit.svg?branch=master)](https://travis-ci.com/solution-libre/puppet-monit)
 
 #### Table of Contents
