@@ -50,11 +50,13 @@
 #   For more details, see: https://mmonit.com/monit/documentation/monit.html#Message-format
 #
 # @param manage_firewall
-#   If true and if puppetlabs-firewall module is present, Puppet manages firewall to allow HTTP access for Monit Dashboard. Default value: 'false'
+#   If true and if puppetlabs-firewall module is present, Puppet manages firewall to allow HTTP access for Monit Dashboard.
+#   Default value: 'false'
 #
 # @param mmonit_address
 #   *Requires at least Monit 5.0*<br />
-#   Specifies the remote address of an M/Monit server to be used by Monit agent for report. If set to undef, M/Monit connection is disabled. Default value: undef
+#   Specifies the remote address of an M/Monit server to be used by Monit agent for report. If set to undef, M/Monit connection is disabled.
+#   Default value: undef
 #
 # @param mmonit_https
 #   *Requires at least Monit 5.0*<br />
@@ -76,10 +78,14 @@
 #
 # @param mmonit_without_credential
 #   *Requires at least Monit 5.0*<br />
-#   By default Monit registers credentials with M/Monit so M/Monit can smoothly communicate back to Monit and you don't have to register Monit credentials manually in M/Monit. It is possible to disable credential registration setting this option to 'true'. Default value: 'false'
+#   By default Monit registers credentials with M/Monit so M/Monit can smoothly communicate back to Monit and you don't have to register
+#   Monit credentials manually in M/Monit. It is possible to disable credential registration setting this option to 'true'.
+#   Default value: 'false'
 #
 # @param package_ensure
-#   Tells Puppet whether the Monit package should be installed, and what version. Valid options: 'present', 'latest', or a specific version number. Default value: 'present'
+#   Tells Puppet whether the Monit package should be installed, and what version.
+#   Valid options: 'present', 'latest', or a specific version number.
+#   Default value: 'present'
 #
 # @param package_name
 #   Tells Puppet what Monit package to manage. Default value: 'monit'
@@ -108,7 +114,7 @@ class monit (
   String                                  $httpd_allow               = $monit::params::httpd_allow,
   String                                  $httpd_user                = $monit::params::httpd_user,
   String                                  $httpd_password            = $monit::params::httpd_password,
-  String                                  $logfile                   = $monit::params::logfile,
+  Optional[String]                        $logfile                   = $monit::params::logfile,
   Optional[String]                        $mailserver                = $monit::params::mailserver,
   Optional[Hash]                          $mailformat                = $monit::params::mailformat,
   Variant[Boolean, Enum['true', 'false']] $manage_firewall           = $monit::params::manage_firewall,
@@ -173,7 +179,8 @@ class monit (
   # <variable validations>
   validate_absolute_path($config_file)
   validate_absolute_path($config_dir)
-  if $logfile != 'syslog' {
+
+  if $logfile and !($logfile =~ /^syslog(\s+facility\s+log_(local[0-7]|daemon))?/) {
     validate_absolute_path($logfile)
   }
   # </variable validations>

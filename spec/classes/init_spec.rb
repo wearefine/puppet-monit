@@ -489,7 +489,7 @@ Detected lsbdistcodename is <hardy>\.})
 
     validations = {
       'absolute_path' => {
-        name: ['config_file', 'config_dir', 'logfile'],
+        name: ['config_file', 'config_dir'],
         valid: ['/absolute/filepath', '/absolute/directory/'],
         invalid: ['invalid', 3, 2.42, ['array'], { 'ha' => 'sh' }],
         message: '(expects a String value|is not an absolute path)',
@@ -512,6 +512,12 @@ Detected lsbdistcodename is <hardy>\.})
         invalid: [2.42, 'invalid', ['array'], { 'ha' => 'sh ' }, true, false, nil],
         message: 'expects an Integer',
       },
+      'optional_logfile' => {
+        name: ['logfile'],
+        valid: ['/absolute/filepath', '/absolute/directory/', 'syslog', 'syslog facility log_local0'],
+        invalid: ['invalid', 3, 2.42, ['array'], { 'ha' => 'sh' }],
+        message: '(expects a value of type Undef or String|is not an absolute path)',
+      },
       'optional_hash' => {
         name: ['mailformat'],
         valid: [{ 'ha' => 'sh' }],
@@ -523,7 +529,8 @@ Detected lsbdistcodename is <hardy>\.})
         valid: ['present'],
         invalid: [['array'], { 'ha' => 'sh' }],
         message: 'expects a value of type Undef or String',
-      },      'string' => {
+      },
+      'string' => {
         name: ['httpd_address', 'httpd_allow', 'httpd_user', 'httpd_password',
                'package_ensure', 'package_name', 'service_name', 'mmonit_user',
                'mmonit_password'],
@@ -536,7 +543,7 @@ Detected lsbdistcodename is <hardy>\.})
         valid: ['running'],
         invalid: [['array'], { 'ha' => 'sh' }],
         message: 'expects a match for Enum\[\'running\', \'stopped\'\]',
-      }
+      },
     }
 
     validations.sort.each do |type, var|
