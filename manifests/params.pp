@@ -22,7 +22,7 @@ class monit::params {
   $mailserver                = undef
   $mailformat                = undef
   $alert_emails              = []
-  $start_delay               = 0
+  $start_delay               = undef
   $mmonit_address            = undef
   $mmonit_https              = true
   $mmonit_port               = 8443

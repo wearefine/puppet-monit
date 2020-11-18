@@ -366,28 +366,28 @@ describe 'monit' do
         it 'fails' do
           expect {
             is_expected.to contain_class('monit')
-          }.to raise_error(Puppet::PreformattedError, %r{expects an Integer\[0, 65535\] value})
+          }.to raise_error(Puppet::PreformattedError, %r{expects an Integer\[1, 65535\] value})
         end
       end
     end
 
-    context 'when check_interval is set to invalid value <-1>' do
-      let(:params) { { check_interval: -1 } }
+    context 'when check_interval is set to invalid value <0>' do
+      let(:params) { { check_interval: 0 } }
 
       it 'fails' do
         expect {
           is_expected.to contain_class('monit')
-        }.to raise_error(Puppet::PreformattedError, %r{expects an Integer\[0\] value})
+        }.to raise_error(Puppet::PreformattedError, %r{expects an Integer\[1\] value})
       end
     end
 
-    context 'when start_delay is set to invalid value <-1>' do
-      let(:params) { { start_delay: -1 } }
+    context 'when start_delay is set to invalid value <0>' do
+      let(:params) { { start_delay: 0 } }
 
       it 'fails' do
         expect {
           is_expected.to contain_class('monit')
-        }.to raise_error(Puppet::PreformattedError, %r{expects an Integer\[0\] value})
+        }.to raise_error(Puppet::PreformattedError, %r{expects a value of type Undef or Integer\[1\]})
       end
     end
 
@@ -507,10 +507,16 @@ Detected lsbdistcodename is <hardy>\.})
         message: 'expects a value of type Boolean or Enum',
       },
       'integer' => {
-        name: ['check_interval', 'httpd_port', 'mmonit_port', 'start_delay'],
+        name: ['check_interval', 'httpd_port', 'mmonit_port'],
         valid: [242],
         invalid: [2.42, 'invalid', ['array'], { 'ha' => 'sh ' }, true, false, nil],
         message: 'expects an Integer',
+      },
+      'optional_integer' => {
+        name: ['start_delay'],
+        valid: [242],
+        invalid: [2.42, 'invalid', ['array'], { 'ha' => 'sh ' }, true, false, nil],
+        message: 'expects a value of type Undef or Integer',
       },
       'optional_logfile' => {
         name: ['logfile'],

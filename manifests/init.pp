@@ -100,16 +100,16 @@
 #   Tells Puppet what Monit service to manage. Default value: 'monit'
 #
 # @param start_delay *Requires at least Monit 5.0*
-#   If set, Monit will wait the specified time in seconds before it starts checking services. Default value: 0
+#   If set, Monit will wait the specified time in seconds before it starts checking services. Default value: undef
 #
 class monit (
   Array[String]                           $alert_emails              = $monit::params::alert_emails,
-  Integer[0]                              $check_interval            = $monit::params::check_interval,
+  Integer[1]                              $check_interval            = $monit::params::check_interval,
   String                                  $config_file               = $monit::params::config_file,
   String                                  $config_dir                = $monit::params::config_dir,
   Variant[Boolean, Enum['true', 'false']] $config_dir_purge          = $monit::params::config_dir_purge,
   Variant[Boolean, Enum['true', 'false']] $httpd                     = $monit::params::httpd,
-  Integer[0, 65535]                       $httpd_port                = $monit::params::httpd_port,
+  Integer[1, 65535]                       $httpd_port                = $monit::params::httpd_port,
   String                                  $httpd_address             = $monit::params::httpd_address,
   String                                  $httpd_allow               = $monit::params::httpd_allow,
   String                                  $httpd_user                = $monit::params::httpd_user,
@@ -120,7 +120,7 @@ class monit (
   Variant[Boolean, Enum['true', 'false']] $manage_firewall           = $monit::params::manage_firewall,
   Optional[String]                        $mmonit_address            = $monit::params::mmonit_address,
   Variant[Boolean, Enum['true', 'false']] $mmonit_https              = $monit::params::mmonit_https,
-  Integer[0, 65535]                       $mmonit_port               = $monit::params::mmonit_port,
+  Integer[1, 65535]                       $mmonit_port               = $monit::params::mmonit_port,
   String                                  $mmonit_user               = $monit::params::mmonit_user,
   String                                  $mmonit_password           = $monit::params::mmonit_password,
   Variant[Boolean, Enum['true', 'false']] $mmonit_without_credential = $monit::params::mmonit_without_credential,
@@ -130,7 +130,7 @@ class monit (
   Enum['running', 'stopped']              $service_ensure            = $monit::params::service_ensure,
   Variant[Boolean, Enum['true', 'false']] $service_manage            = $monit::params::service_manage,
   String                                  $service_name              = $monit::params::service_name,
-  Integer[0]                              $start_delay               = $monit::params::start_delay,
+  Optional[Integer[1]]                    $start_delay               = $monit::params::start_delay,
 ) inherits monit::params {
   # <stringified variable handling>
   if is_string($httpd) == true {
@@ -193,7 +193,7 @@ class monit (
     $monit_version_real = $monit::params::monit_version
   }
 
-  if($start_delay + 0 > 0 and versioncmp($monit_version_real,'5') < 0) {
+  if($start_delay and $start_delay > 0 and versioncmp($monit_version_real,'5') < 0) {
     fail("start_delay requires at least Monit 5.0. Detected version is <${monit_version_real}>.")
   }
 
