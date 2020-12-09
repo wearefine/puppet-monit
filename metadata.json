@@ -1,6 +1,6 @@
 {
   "name": "soli-monit",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "author": "Solution Libre SAS",
   "summary": "Puppet module to manage monit installation and configuration",
   "license": "Apache-2.0",

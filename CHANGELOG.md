@@ -1,13 +1,35 @@
+## 2020-12-09 - Release 3.0.0
+### Summary
+
+This release adds the support for Debian 10/Buster and for CentOS 8 and the ability to use special characters in `httpd_password` parameter.
+It fixes logging limitations and Amazon Linux compatibility.
+It uses a Docker Compose file to use PDK 1.8.1.
+
+***BREAKING CHANGES***
+This release remove the support for Puppet 3.
+
+#### Features
+- Added the support for Debian 10/Buster
+- Added the support for CentOS 8
+- Added ability to use special characters in `httpd_password` parameter
+
+#### BugFixes
+- Fixed logging limitations
+- Fixed Amazon Linux compatibility
+
+#### Development
+- Added a Docker Compose file to use PDK
+
 ## 2018-11-23 - Release 2.0.1
 ### Summary
 
-This release fixes the support of Amazon Linux 2 and uses PDK 1.7.1.
+This release fixes the support for Amazon Linux 2 and uses PDK 1.7.1.
 
 #### BugFixes
-- Fixe the support of Amazon Linux 2
+- Fixed the support for Amazon Linux 2
 
 ## 2018-10-07 - Release 2.0.0
-## Summary
+### Summary
 
 This release adds `httpd_allow` configuration and support for MMonit HTTPs addresses and uses PDK 1.7.0.
 
