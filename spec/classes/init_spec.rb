@@ -15,7 +15,7 @@ describe 'monit' do
           when 'squeeze', 'lucid'
             default_file_content = 'startup=1'
             service_hasstatus    = false
-          when 'wheezy', 'jessie', 'stretch', 'precise', 'trusty', 'xenial', 'bionic'
+          when 'wheezy', 'jessie', 'stretch', 'buster', 'precise', 'trusty', 'xenial', 'bionic'
             default_file_content = 'START=yes'
             service_hasstatus    = true
           else
