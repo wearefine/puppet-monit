@@ -377,7 +377,7 @@ describe 'monit' do
       it 'fails' do
         expect {
           is_expected.to contain_class('monit')
-        }.to raise_error(Puppet::PreformattedError, %r{expects an Integer\[1\] value})
+        }.to raise_error(Puppet::PreformattedError, %r{expects an Integer\[1})
       end
     end
 
@@ -387,7 +387,7 @@ describe 'monit' do
       it 'fails' do
         expect {
           is_expected.to contain_class('monit')
-        }.to raise_error(Puppet::PreformattedError, %r{expects a value of type Undef or Integer\[1\]})
+        }.to raise_error(Puppet::PreformattedError, %r{expects a value of type Undef or Integer\[1})
       end
     end
 
