@@ -42,13 +42,13 @@ class monit::params {
           $default_file_content = 'startup=1'
           $service_hasstatus    = false
         }
-        'wheezy', 'jessie', 'stretch', 'buster', 'precise', 'trusty', 'xenial', 'bionic': {
+        'wheezy', 'jessie', 'stretch', 'buster', 'precise', 'trusty', 'xenial', 'bionic', 'focal': {
           $default_file_content = 'START=yes'
           $service_hasstatus    = true
         }
         default: {
           fail("monit supports Debian 6 (squeeze), 7 (wheezy), 8 (jessie), 9 (stretch) and 10 (buster) \
-and Ubuntu 10.04 (lucid), 12.04 (precise), 14.04 (trusty), 16.04 (xenial) and 18.04 (bionic). \
+and Ubuntu 10.04 (lucid), 12.04 (precise), 14.04 (trusty), 16.04 (xenial), 18.04 (bionic) and 20.04 (focal). \
 Detected lsbdistcodename is <${::lsbdistcodename}>.")
         }
       }
